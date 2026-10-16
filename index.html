@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enterprise Guide to Best Practices for AI Agents | Edson Martins</title>
+<meta name="description" content="How to design, secure and operate AI agents that survive production. 20 chapters on architecture, guardrails, human-in-the-loop, evals and cost, real-world cases and ready-to-use n8n workflows.">
+<meta name="keywords" content="AI agents, AI agent architecture, n8n, agentic AI, guardrails, prompt injection, human-in-the-loop, LLM evals, multi-agent systems, AI governance, enterprise AI">
+<meta name="author" content="Edson Martins">
+<link rel="canonical" href="https://edson-martins.github.io/guia-agentes-ia-n8n/en/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Enterprise Guide to Best Practices for Artificial Intelligence Agents">
+<meta property="og:description" content="Building an AI agent takes an afternoon. Keeping it running six months later is another story.">
+<meta property="og:image" content="https://edson-martins.github.io/guia-agentes-ia-n8n/en/assets/og.jpg">
+<meta property="og:url" content="https://edson-martins.github.io/guia-agentes-ia-n8n/en/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&family=Fraunces:ital,opsz@1,9..144&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Book","name":"Enterprise Guide to Best Practices for Artificial Intelligence Agents","alternativeHeadline":"From automation to autonomous reasoning: architecture, design, security and scale with n8n","author":{"@type":"Person","name":"Edson Martins"},"inLanguage":"en","bookFormat":"https://schema.org/EBook","numberOfPages":173,"datePublished":"2026-10","image":"https://edson-martins.github.io/guia-agentes-ia-n8n/en/assets/cover.jpg","about":["AI agents","n8n","AI governance","LLM evaluation"]}
+</script>
+<style>
+:root{--navy:#0a1628;--navy2:#0f2238;--ink:#14213a;--muted:#4a5a75;--line:#dde4ee;--cyan:#3fd0e6;--cyan2:#1aa6bf;--gold:#e0a526;--bg:#f6f8fb}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:#fff;font-size:17px;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan2)}
+.btn{display:inline-block;background:var(--cyan);color:var(--navy);font-weight:800;text-decoration:none;padding:16px 30px;border-radius:8px;font-size:17px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(63,208,230,.35)}
+.btn.ghost{background:transparent;color:#fff;border:1.5px solid #ffffff55}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.15;font-weight:800;margin:10px 0 18px;letter-spacing:-.01em}
+section{padding:84px 0}
+/* hero */
+.hero{background:radial-gradient(circle at 80% 40%,#123a55 0%,var(--navy) 55%,#060e1b 100%);color:#fff;padding:72px 0 84px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#ffffff12 1.2px,transparent 1.2px);background-size:26px 26px}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
+.hero .kicker{color:var(--cyan)}
+.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.06;font-weight:800;margin:16px 0 20px;letter-spacing:-.015em}
+.hero h1 span{color:var(--cyan)}
+.hero p.sub{font-size:20px;color:#c9d5e8;max-width:560px;margin-bottom:30px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero .meta{margin-top:22px;font-size:14px;color:#8fa3bf}
+.hero img{width:100%;height:auto;max-width:340px;justify-self:center;box-shadow:0 30px 60px rgba(0,0,0,.55);border-radius:4px}
+/* problem */
+.problem{background:var(--bg)}
+.problem p{font-size:20px;max-width:780px;color:#2a3a55}
+/* test */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+.card{border:1px solid var(--line);border-radius:12px;padding:28px;background:#fff}
+.card .n{font-size:38px;font-weight:800;color:var(--cyan2);line-height:1}
+.card h3{font-size:21px;margin:12px 0 8px}
+.card p{color:var(--muted);font-size:16px}
+/* inside */
+.inside{background:var(--navy);color:#fff}
+.inside .kicker{color:var(--cyan)}
+.list{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;margin-top:28px;list-style:none}
+.list li{padding-left:30px;position:relative;color:#d7e1f0}
+.list li:before{content:"";position:absolute;left:0;top:10px;width:14px;height:3px;background:var(--cyan)}
+/* toc */
+.toc{display:grid;grid-template-columns:1fr 1fr;gap:26px 48px;margin-top:30px}
+.part h4{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan2);margin-bottom:8px}
+.part ol{list-style:none}
+.part li{padding:7px 0;border-bottom:1px solid var(--line);font-size:16px}
+.part li b{color:var(--muted);font-weight:600;margin-right:8px}
+/* samples */
+.samples{background:var(--bg)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}
+.sgrid figure{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;box-shadow:0 12px 30px rgba(20,33,58,.08)}
+.sgrid img{width:100%;display:block;border-radius:4px}
+.sgrid figcaption{font-size:14px;color:var(--muted);margin-top:10px;text-align:center}
+/* get + who */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.check{list-style:none;margin-top:14px}
+.check li{padding:10px 0 10px 34px;position:relative;border-bottom:1px solid var(--line)}
+.check li:before{content:"✓";position:absolute;left:4px;top:9px;color:var(--cyan2);font-weight:800}
+.note{margin-top:16px;color:var(--muted);font-size:15px}
+/* lead magnet */
+.magnet{background:linear-gradient(135deg,#0f2a44,#0a1628);color:#fff;border-radius:16px;padding:40px;display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.magnet h3{font-size:26px;margin-bottom:6px}
+.magnet p{color:#c9d5e8;max-width:560px}
+/* author */
+.author{background:var(--bg)}
+.author p{max-width:780px;font-size:18px;color:#2a3a55}
+.quote{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--ink);border-left:3px solid var(--gold);padding-left:18px;margin-top:22px;max-width:760px}
+/* faq */
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-weight:700;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--cyan2);font-weight:800}
+details[open] summary:after{content:"–"}
+details p{margin-top:10px;color:var(--muted)}
+/* final */
+.final{background:radial-gradient(circle at 50% 0%,#123a55 0%,var(--navy) 60%);color:#fff;text-align:center}
+.final h2{max-width:760px;margin:0 auto 26px}
+.final .small{margin-top:16px;font-size:14px;color:#8fa3bf}
+footer{background:#060e1b;color:#8fa3bf;font-size:14px;padding:28px 0;text-align:center}
+footer a{color:#c9d5e8}
+@media (max-width:820px){
+  section{padding:60px 0}
+  .hero .wrap,.two,.toc,.sgrid,.list,.cards{grid-template-columns:1fr}
+  .hero img{max-width:240px;order:-1}
+  .magnet{padding:28px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Edson Martins · Ebook + n8n workflows</div>
+      <h1>Building an AI agent takes an afternoon. <span>Keeping it running six months later</span> is another story.</h1>
+      <p class="sub">The enterprise guide to designing, securing and operating AI agents that survive production, with ready-to-use n8n workflows.</p>
+      <div class="ctas">
+        <a class="btn" href="https://pay.hotmart.com/Q108061603P">Get the guide</a>
+        <a class="btn ghost" href="#inside">See what's inside</a>
+      </div>
+      <div class="meta">20 chapters · 3 appendices · PDF · 7-day guarantee</div>
+    </div>
+    <img src="assets/cover.jpg" alt="Enterprise Guide to Best Practices for Artificial Intelligence Agents, book cover" width="600" height="862">
+  </div>
+</header>
+
+<section class="problem">
+  <div class="wrap">
+    <div class="kicker">The problem</div>
+    <h2>AI agents rarely fail in the demo. They fail in production.</h2>
+    <p>When the API goes down, a customer asks for something off-script, personal data almost leaks and a token bill nobody planned for arrives, the prototype stops being enough. Most teams find out too late which decisions they should have made on day one.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The 6-Month Test</div>
+    <h2>One criterion runs through the whole book</h2>
+    <div class="cards">
+      <div class="card"><div class="n">1</div><h3>Simplify before you scale</h3><p>Start with the simplest design that meets the use case and add complexity only when simplicity shows its limits.</p></div>
+      <div class="card"><div class="n">2</div><h3>Build for failure</h3><p>Anticipate tool failures, unexpected model responses and malformed inputs from the very first version.</p></div>
+      <div class="card"><div class="n">3</div><h3>Govern from the start</h3><p>Security, privacy and human oversight come in from the first line of the design, not after the first incident.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="inside" id="inside">
+  <div class="wrap">
+    <div class="kicker">What's inside</div>
+    <h2>Everything that comes after the prototype</h2>
+    <ul class="list">
+      <li>When an agent is worth it, and when a script or an LLM pipeline does the job better</li>
+      <li>Model selection, tool design and prompt engineering for autonomous agents</li>
+      <li>Single-agent and multi-agent orchestration, and event-driven architecture</li>
+      <li>Guardrails, prompt injection defense and human-in-the-loop oversight</li>
+      <li>Privacy and compliance by design, with Brazil's LGPD as the worked example and the GDPR parallel</li>
+      <li>Resilience, monitoring, observability and evals with an LLM as a judge</li>
+      <li>Scalability in production, cost management and ROI</li>
+      <li>Real-world cases from Klarna, Morgan Stanley, Bradesco and Localiza</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Table of contents</div>
+    <h2>20 chapters in 7 parts</h2>
+    <div class="toc">
+      <div class="part"><h4>Part I · Foundations</h4><ol><li><b>1</b>The new paradigm of AI agents</li><li><b>2</b>Anatomy of an AI agent</li><li><b>3</b>When (and when not) to build an agent</li></ol></div>
+      <div class="part"><h4>Part II · Design and architecture</h4><ol><li><b>4</b>Model selection and tool design</li><li><b>5</b>Prompt engineering for autonomous agents</li><li><b>6</b>Orchestration patterns: single-agent</li><li><b>7</b>Multi-agent systems</li><li><b>8</b>Distributed and event-driven architecture</li></ol></div>
+      <div class="part"><h4>Part III · Implementation with n8n</h4><ol><li><b>9</b>n8n: first steps with agents</li><li><b>10</b>Advanced agentic workflows in n8n</li></ol></div>
+      <div class="part"><h4>Part IV · Security and governance</h4><ol><li><b>11</b>Guardrails: building safe agents</li><li><b>12</b>Privacy, LGPD and compliance</li><li><b>13</b>Human-in-the-loop and human oversight</li></ol></div>
+      <div class="part"><h4>Part V · Operations and scalability</h4><ol><li><b>14</b>Resilience and failure handling</li><li><b>15</b>Monitoring, observability and evaluation</li><li><b>16</b>Scalability in production</li></ol></div>
+      <div class="part"><h4>Part VI · Business and the future</h4><ol><li><b>17</b>Cost management and ROI</li><li><b>18</b>Ethics, bias and responsibility</li><li><b>19</b>The future of AI agents</li></ol></div>
+      <div class="part"><h4>Part VII · Real-world cases</h4><ol><li><b>20</b>Real-world cases: evidence from the field</li></ol></div>
+      <div class="part"><h4>Appendices</h4><ol><li><b>A</b>Ready-to-use templates</li><li><b>B</b>Bonus resources and workflow downloads</li><li><b>C</b>Licensing, permitted uses and next steps</li></ol></div>
+    </div>
+  </div>
+</section>
+
+<section class="samples">
+  <div class="wrap">
+    <div class="kicker">Look inside</div>
+    <h2>Sample pages</h2>
+    <div class="sgrid">
+      <figure><img src="assets/sample-pillars.jpg" alt="Sample page: the three pillars of an AI agent" loading="lazy"><figcaption>Chapter 2 · The three pillars of an AI agent</figcaption></figure>
+      <figure><img src="assets/sample-n8n.jpg" alt="Sample page: a basic AI agent in n8n" loading="lazy"><figcaption>Chapter 9 · A basic agent in n8n</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two">
+    <div>
+      <div class="kicker">What you get</div>
+      <h2>Ready to use from day one</h2>
+      <ul class="check">
+        <li>The complete ebook in PDF, 20 chapters and 3 appendices</li>
+        <li>Ready-to-use templates: system prompts, FAQ structure and error handling</li>
+        <li>n8n workflows ready to import, with a study environment you can run locally</li>
+        <li>The 6-Month Test checklist</li>
+      </ul>
+    </div>
+    <div>
+      <div class="kicker">Who it is for</div>
+      <h2>Written for people who ship</h2>
+      <ul class="check">
+        <li>Solution architects and engineers taking agents from prototype to production</li>
+        <li>Technical leaders who need to weigh risk, cost and governance</li>
+        <li>Consultants and automation specialists building agents with n8n</li>
+      </ul>
+      <p class="note">Not for you if you are looking for a no-code shortcut or a tool tutorial with no architecture behind it.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="magnet">
+      <div>
+        <div class="kicker" style="color:var(--cyan)">Free checklist</div>
+        <h3>Does your agent pass the 6-Month Test?</h3>
+        <p>Twelve yes-or-no questions to find out whether your agent is built to last, or whether the countdown has already started.</p>
+      </div>
+      <a class="btn" href="assets/6-Month-Test-checklist.pdf" download>Download the checklist</a>
+    </div>
+  </div>
+</section>
+
+<section class="author">
+  <div class="wrap">
+    <div class="kicker">About the author</div>
+    <h2>Edson Martins</h2>
+    <p>Edson Martins has worked in enterprise technology for more than 25 years, designing payment, retail invoicing and railway control systems, environments where failing silently is not an option. Today he builds AI agents for real businesses and wrote this guide to share the practices that keep them running in production.</p>
+    <p class="quote">"This is not a book about how to put together an agent in an afternoon. It is a book about what happens afterwards."</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">FAQ</div>
+    <h2>Questions</h2>
+    <details><summary>What format is the book?</summary><p>PDF, ready to read on any device, plus the n8n workflows as JSON files to import.</p></details>
+    <details><summary>Do I need to know n8n?</summary><p>No. Chapters 1 to 8 and 11 to 20 apply to any platform. Chapters 9 and 10 show the implementation in n8n step by step.</p></details>
+    <details><summary>Is the content specific to Brazil?</summary><p>The architecture, security and operations practices apply anywhere. The privacy chapter uses Brazil's LGPD as the worked example, and the LGPD follows the same logic as the GDPR.</p></details>
+    <details><summary>How do I receive it?</summary><p>Access is immediate after payment confirmation, through the Hotmart members area.</p></details>
+    <details><summary>Is there a guarantee?</summary><p>Yes. You have 7 days to request a full refund through Hotmart, no questions asked.</p></details>
+    <details><summary>Are the workflows really free?</summary><p>Yes. The n8n workflows are also on GitHub, free. The book explains the decisions behind each one, which is what makes them safe to adapt.</p></details>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Build agents that are still running six months from now.</h2>
+    <a class="btn" href="https://pay.hotmart.com/Q108061603P">Get the guide</a>
+    <div class="small">7-day guarantee · Instant access · Secure checkout by Hotmart</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Edson Martins · <a href="https://github.com/edson-martins/guia-agentes-ia-n8n">Free n8n workflows on GitHub</a> · <a href="mailto:contato@edsonmartins.com">contato@edsonmartins.com</a></div>
+</footer>
+
+</body>
+</html>
